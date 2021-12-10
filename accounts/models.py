@@ -68,7 +68,8 @@ class Users(models.Model):
 
 class Service(models.Model):
     category = models.CharField(max_length=250)
-    name = models.CharField(max_length=250,null=True, blank=True)
+    providers = models.IntegerField(null=True, blank=True)
+    users = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.category

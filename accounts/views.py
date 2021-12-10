@@ -11,6 +11,7 @@ from django.template import RequestContext
 
 from .models import *
 from .functions import *
+from .forms import *
 # Create your views here.
 
 class IndexView(View):
@@ -92,10 +93,35 @@ class AllServices(View):
             user = request.user
             account = Users.objects.get(user=user)
             services = Service.objects.all()
-            context = {'account':account,'services':services}
+            form = AddServiceForm()
+            context = {'account':account,'services':services,'form':form}
             return render(request, 'admin/services.html', context)
         else:
             return redirect('home')
+
+    def post(self, request):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            services = Service.objects.all()
+            form = AddServiceForm(request.POST)
+            if form.is_valid:
+                f = form.save(commit=False)
+                f.providers = 0
+                f.users = 0
+                f.save()
+                return redirect('admin_services')
+            else:
+                alert="Adding service failed."
+                context = {'account':account,'services':services,'form':form}
+                return render(request, 'admin/services.html', context)
+        else:
+            return redirect('home')
+        
+
+
+        
 
     
 
