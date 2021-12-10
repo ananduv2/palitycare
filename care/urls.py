@@ -29,5 +29,6 @@ urlpatterns = [
     path('home/',Home.as_view(), name='home'),
 
 
-    path('dashboard/admin/',AdminDashboard.as_view(), name='admin_dashboard')
+    path('dashboard/admin/',AdminDashboard.as_view(), name='admin_dashboard'),
+    path('services/admin/',AllServices.as_view(), name='admin_services'),
 ]

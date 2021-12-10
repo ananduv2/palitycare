@@ -77,9 +77,25 @@ class AdminDashboard(View):
         if x == True:
             user = request.user
             account = Users.objects.get(user=user)
-            context = {'account': account}
+            providers = Users.objects.filter(type='service_provider').count()
+            public = Users.objects.filter(type='public').count()
+            services = Service.objects.all().count()
+            context = {'account': account,'providers': providers,'public': public,'services': services}
             return render(request, 'admin/dashboard.html', context)
         else:
             return redirect('home')
+
+class AllServices(View):
+    def get(self, request):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            services = Service.objects.all()
+            context = {'account':account,'services':services}
+            return render(request, 'admin/services.html', context)
+        else:
+            return redirect('home')
+
     
 
