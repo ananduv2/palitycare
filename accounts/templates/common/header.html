@@ -58,13 +58,19 @@
                 </div>
                 <div class="col-lg-3 col-md-12">
                     <hr class="margin-bottom-0px d-block d-sm-none">
-                    <a href="dashboard-add-listing.html"
-                        class="btn btn-sm border-radius-30 margin-tb-15px text-white background-second-color  box-shadow float-right padding-lr-20px margin-left-30px">
-                        <i class="fas fa-plus-circle"></i> Add list
-                    </a>
-                    <a href="{% url 'login' %}"
-                        class="margin-tb-20px d-inline-block text-up-small float-left float-lg-right"><i
-                            class="far fa-user"></i> Login</a>
+                    {% if request.user.is_authenticated %}
+                    <div class="nav-item dropdown float-left">
+                        <a href="dashboard-my-profile.html" class="margin-top-15px d-inline-block text-grey-3 margin-right-15px"><img src="assets/img/testimonial-3.png" class="height-30px border-radius-30" alt="">{{account.name|title}}</a>
+                    </div>
+    
+                    <div class="nav-item float-left">
+                        <a href="{% url 'logout' %}" class="nav-link margin-top-10px" data-toggle="modal" data-target="#exampleModal">
+                            <div class="text-grey-3"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</div>
+                        </a>
+                    </div>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="margin-tb-20px d-inline-block text-up-small float-left float-lg-right"><i class="far fa-user"></i> Login</a>
+                    {% endif %}
                 </div>
             </div>
 

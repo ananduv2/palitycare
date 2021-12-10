@@ -10,6 +10,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.template import RequestContext
 
 from .models import *
+from .functions import *
 # Create your views here.
 
 class IndexView(View):
@@ -55,8 +56,8 @@ class Home(View):
             try:
                 u = Users.objects.get(user=user)
                 if u.type == 'admin':
-                    # return redirect('admin_dashboard')
-                    return HttpResponse("Admin Dashboard")
+                    return redirect('admin_dashboard')
+                    # return HttpResponse("Admin Dashboard")
                 elif u.type == 'service_provider':
                     # return HttpResponse("Service Provider")
                     return HttpResponse("Service Provider Dashboard")
@@ -68,4 +69,17 @@ class Home(View):
                 return redirect('logout')
         else:
             return redirect('logout')
+
+
+class AdminDashboard(View):
+    def get(self, request):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            context = {'account': account}
+            return render(request, 'admin/dashboard.html', context)
+        else:
+            return redirect('home')
+    
 
