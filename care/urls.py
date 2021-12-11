@@ -34,6 +34,7 @@ urlpatterns = [
     path('administrator/services/update/<id>',UpdateService.as_view(), name='update_admin_service'),
     path('administrator/services/delete/<id>',DeleteService.as_view(), name='delete_admin_service'),
 
+    path('provider/signup/',ProviderSignUp.as_view(), name='provider_signup'),
 
     path('user/signup/',UserSignup.as_view(), name='user_signup'),
 ]

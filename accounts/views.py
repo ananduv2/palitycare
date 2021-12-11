@@ -177,6 +177,27 @@ class ProviderSignUp(View):
         context = {'form': form,'dataform': dataform}
         return render(request,'provider/signup.html',context)
 
+    def post(self, request):
+        form = PublicUserCreationForm(request.POST)
+        dataform = UserSignUpForm(request.POST,request.FILES)
+        if form.is_valid() and dataform.is_valid():
+            user = form.save(commit=False)
+            user.email = user.username
+            user.save()
+            profile = dataform.save(commit=False)
+            profile.user = user
+            profile.email = user.username
+            profile.type='public'
+            profile.approval = Approved
+            try:
+                profile.save()
+            except:
+                user.delete()
+            return redirect('login')
+        else:
+            context = {'form': form,'dataform': dataform}
+            return render(request,'user/signup.html',context)
+
 
                 
 
