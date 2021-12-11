@@ -25,3 +25,9 @@ class ProviderSignUpForm(ModelForm):
     class Meta:
         model = Users
         fields = ['name', 'mob','sex','house','street1','street2','city','district','state','pin','organization','document']
+
+class AddSubProductForm(ModelForm):
+    count = forms.CharField(required=False)
+    class Meta:
+        model = SubProduct
+        fields = ['name', 'count','cost','details']

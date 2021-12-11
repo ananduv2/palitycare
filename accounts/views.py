@@ -248,6 +248,10 @@ class AddToMyService(View):
             account = Users.objects.get(user=user)
             service = Service.objects.get(id=id)
             count = request.POST.get('count')
+            if count:
+                pass
+            else:
+                count = 1
             cost = request.POST.get('cost')
             ps = ProviderService(user=account,service=service,count=count,cost=cost)
             ps.save()
@@ -276,10 +280,54 @@ class Product(View):
             account = Users.objects.get(user=user)
             ps = ProviderService.objects.get(id=id)
             sp = SubProduct.objects.filter(service__user=account,service=ps)
-            context = {'account': account,'ps': ps,'sp':sp}
+            form =  AddSubProductForm()
+            context = {'account': account,'ps': ps,'sp':sp,'form': form}
             return render(request,'provider/product.html',context)
         else:
             return redirect('home')
+
+    def post(self, request,id):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            ps = ProviderService.objects.get(id=id)
+            sp = SubProduct.objects.filter(service__user=account,service=ps)
+            form =  AddSubProductForm(request.POST)
+            if form.is_valid:
+                f = form.save(commit=False)
+                f.service = ps
+                if f.count:
+                    pass
+                else:
+                    f.count = 1
+                f.save()
+                return redirect('product',id=id)
+            else:
+                context = {'account': account,'ps': ps,'sp':sp,'form': form}
+                return render(request,'provider/product.html',context)
+        else:
+            return redirect('home')
+
+class RemoveService(View):
+    def post(self, request,id):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            ps = ProviderService.objects.get(id=id)
+            ps.delete()
+            return redirect('my_services')
+        else:
+            return redirect('home')
+
+
+
+            
+
+
+
+
 
 
 

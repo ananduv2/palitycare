@@ -40,6 +40,7 @@ urlpatterns = [
     path('provider/add/service/<id>',AddToMyService.as_view(), name='add_service'),
     path('provider/my/services/',MyServices.as_view(), name='my_services'),
     path('provider/service/product/<id>',Product.as_view(), name='product'),
+    path('provider/remove/service/<id>',RemoveService.as_view(), name='remove_service'),
 
     path('user/signup/',UserSignup.as_view(), name='user_signup'),
     path('user/dashboard/',UserDashboard.as_view(), name='user_dashboard'),
