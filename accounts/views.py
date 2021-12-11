@@ -118,6 +118,31 @@ class AllServices(View):
                 return render(request, 'admin/services.html', context)
         else:
             return redirect('home')
+
+
+class UpdateService(View):
+    def post(self, request,id):
+        x = AdminCheck(request)
+        if x == True:
+            update_service_name = request.POST.get('update_service_name')
+            service = Service.objects.get(id=id)
+            service.category = update_service_name
+            service.save()
+            return redirect('admin_services')
+        else:
+            return redirect('home')
+
+class DeleteService(View):
+    def post(self, request,id):
+        x = AdminCheck(request)
+        if x == True:
+            service = Service.objects.get(id=id)
+            service.delete()
+            return redirect('admin_services')
+        else:
+            return redirect('home')
+
+
         
 
 
