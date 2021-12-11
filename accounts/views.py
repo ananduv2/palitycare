@@ -188,7 +188,7 @@ class ProviderSignUp(View):
             profile.user = user
             profile.email = user.username
             profile.type='public'
-            profile.approval = Approved
+            profile.approval = 'Approved'
             try:
                 profile.save()
             except:
