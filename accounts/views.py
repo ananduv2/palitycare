@@ -159,6 +159,7 @@ class UserSignup(View):
             profile = dataform.save(commit=False)
             profile.user = user
             profile.email = user.username
+            profile.approval = True
             try:
                 profile.save()
             except:
