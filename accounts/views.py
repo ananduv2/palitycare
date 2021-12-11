@@ -142,6 +142,36 @@ class DeleteService(View):
         else:
             return redirect('home')
 
+class UserSignup(View):
+    def get(self, request):
+        form = PublicUserCreationForm()
+        dataform = UserSignUpForm()
+        context = {'form': form,'dataform': dataform}
+        return render(request,'user/signup.html',context)
+    
+    def post(self, request):
+        form = PublicUserCreationForm(request.POST)
+        dataform = UserSignUpForm(request.POST)
+        if form.is_valid() and dataform.is_valid():
+            user = form.save(commit=False)
+            user.email = user.username
+            user.save()
+            profile = dataform.save(commit=False)
+            profile.user = user
+            profile.email = user.username
+            try:
+                profile.save()
+            except:
+                user.delete()
+            return redirect('login')
+        else:
+            context = {'form': form,'dataform': dataform}
+            return render(request,'user/signup.html',context)
+
+                
+
+
+
 
         
 

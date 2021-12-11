@@ -33,4 +33,7 @@ urlpatterns = [
     path('administrator/services/',AllServices.as_view(), name='admin_services'),
     path('administrator/services/update/<id>',UpdateService.as_view(), name='update_admin_service'),
     path('administrator/services/delete/<id>',DeleteService.as_view(), name='delete_admin_service'),
+
+
+    path('user/signup/',UserSignup.as_view(), name='user_signup'),
 ]

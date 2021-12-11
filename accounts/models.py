@@ -51,8 +51,9 @@ class Users(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
     email = models.EmailField(max_length=200,null=True, blank=True)
+    organization = models.CharField(max_length=250,null=True, blank=True)
     mob = models.CharField(max_length=12)
-    sex = models.CharField(max_length=10,choices=gender)
+    sex = models.CharField(max_length=10,choices=gender,default='Male')
     house = models.CharField(max_length=100,null=True, blank=True)
     street1 =models.CharField(max_length=100,null=True, blank=True)
     street2 =models.CharField(max_length=100,null=True, blank=True)
@@ -60,6 +61,7 @@ class Users(models.Model):
     district = models.CharField(max_length=100,null=True, blank=True)
     state = models.CharField(max_length=100,null=True,choices=states, blank=True)
     pin = models.CharField(max_length=100,null=True,blank=True)
+    age = models.IntegerField(null=True, blank=True)
     type = models.CharField(max_length=20,choices=user_type)
     approval = models.BooleanField(default=False)
 
