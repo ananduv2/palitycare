@@ -159,7 +159,7 @@ class UserSignup(View):
             profile = dataform.save(commit=False)
             profile.user = user
             profile.email = user.username
-            profile.approval = True
+            profile.approval = Approved
             try:
                 profile.save()
             except:
@@ -168,6 +168,15 @@ class UserSignup(View):
         else:
             context = {'form': form,'dataform': dataform}
             return render(request,'user/signup.html',context)
+
+
+class ProviderSignUp(View):
+    def get(self, request):
+        form = PublicUserCreationForm()
+        dataform = ProviderSignUpForm()
+        context = {'form': form,'dataform': dataform}
+        return render(request,'provider/signup.html',context)
+
 
                 
 

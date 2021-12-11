@@ -47,6 +47,12 @@ user_type=(
     ('public','public'),
 )
 
+approval_choices=(
+    ('Pending','Pending'),
+    ('Approved','Approved'),
+    ('Rejected','Rejected')
+)
+
 class Users(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
@@ -63,7 +69,7 @@ class Users(models.Model):
     pin = models.CharField(max_length=100,null=True,blank=True)
     age = models.IntegerField(null=True, blank=True)
     type = models.CharField(max_length=20,choices=user_type)
-    approval = models.BooleanField(default=False)
+    approval = models.CharField(max_length=20,choices=approval_choices,default='Pending')
     document = models.FileField(upload_to='documents',null=True, blank=True)
 
     def __str__(self):

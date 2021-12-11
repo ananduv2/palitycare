@@ -20,3 +20,8 @@ class UserSignUpForm(ModelForm):
     class Meta:
         model = Users
         fields = ['name', 'mob','sex','house','street1','street2','city','district','state','pin']
+
+class ProviderSignUpForm(ModelForm):
+    class Meta:
+        model = Users
+        fields = ['name', 'mob','sex','house','street1','street2','city','district','state','pin','organization','document']
