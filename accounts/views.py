@@ -61,9 +61,10 @@ class Home(View):
                     # return HttpResponse("Admin Dashboard")
                 elif u.type == 'service_provider':
                     # return HttpResponse("Service Provider")
-                    return HttpResponse("Service Provider Dashboard")
+                    return redirect('provider_dashboard')
                 elif u.type == 'public':
-                    return HttpResponse("Public")
+                    # return HttpResponse("Public")
+                    return redirect('user_dashboard')
                 else:
                     return redirect('logout')
             except:
@@ -189,7 +190,7 @@ class ProviderSignUp(View):
             profile.user = user
             profile.email = user.username
             profile.type='service_provider'
-            profile.approval = '1'
+            profile.approval = '2'
             try:
                 profile.save()
             except:
@@ -198,6 +199,31 @@ class ProviderSignUp(View):
         else:
             context = {'form': form,'dataform': dataform}
             return render(request,'user/signup.html',context)
+
+
+class ProviderDashboard(View):
+    def get(self, request):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            context = {'account': account}
+            return render(request,'provider/dashboard.html',context)
+        else:
+            return redirect('home')
+
+class UserDashboard(View):
+    def get(self, request):
+        x = UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            context = {'account': account}
+            return render(request,'user/dashboard.html',context)
+        else:
+            return redirect('home')
+
+
 
 
                 

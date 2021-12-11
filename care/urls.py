@@ -35,8 +35,10 @@ urlpatterns = [
     path('administrator/services/delete/<id>',DeleteService.as_view(), name='delete_admin_service'),
 
     path('provider/signup/',ProviderSignUp.as_view(), name='provider_signup'),
+    path('provider/dashboard/',ProviderDashboard.as_view(), name='provider_dashboard'),
 
     path('user/signup/',UserSignup.as_view(), name='user_signup'),
+    path('user/dashboard/',UserDashboard.as_view(), name='user_dashboard'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
