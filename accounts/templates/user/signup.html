@@ -37,6 +37,17 @@
                         {% endfor %}
                     {% endfor %}
                 {% endif %}
+                {% if dataform.errors %}
+                    {% for field in dataform %}
+                        {% for error in field.errors %}
+                            <div class="form-group label-floating">
+                                <div class="alert alert-danger" style="margin-left:20px">
+                                    <code>{{ error }}</code>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
                 <div class="form-group label-floating">
                     <label class="control-label">Your Email</label>
                     {% load widget_tweaks %}

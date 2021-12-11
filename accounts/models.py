@@ -64,6 +64,7 @@ class Users(models.Model):
     age = models.IntegerField(null=True, blank=True)
     type = models.CharField(max_length=20,choices=user_type)
     approval = models.BooleanField(default=False)
+    document = models.FileField(upload_to='documents',null=True, blank=True)
 
     def __str__(self):
         return self.name
