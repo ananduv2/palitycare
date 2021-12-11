@@ -237,6 +237,8 @@ class AvailableServices(View):
             print(services)       
             context = {'account': account, 'services': services}
             return render(request,'provider/available_services.html',context)
+        else:
+            return redirect('home')
 
 class AddToMyService(View):
     def post(self, request,id):
@@ -249,7 +251,38 @@ class AddToMyService(View):
             cost = request.POST.get('cost')
             ps = ProviderService(user=account,service=service,count=count,cost=cost)
             ps.save()
-        return redirect('available_services')
+            return redirect('available_services')
+        else:
+            return redirect('home')
+
+class MyServices(View):
+    def get(self, request):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            ps = ProviderService.objects.filter(user=account)
+            sp = SubProduct.objects.filter(service__user=account)
+            context = {'account': account,'ps': ps,'sp':sp}
+            return render(request,'provider/my_services.html',context)
+        else:
+            return redirect('home')
+
+class Product(View):
+    def get(self,request,id):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            ps = ProviderService.objects.get(id=id)
+            sp = SubProduct.objects.filter(service__user=account,service=ps)
+            context = {'account': account,'ps': ps,'sp':sp}
+            return render(request,'provider/product.html',context)
+        else:
+            return redirect('home')
+
+
+
 
 
 

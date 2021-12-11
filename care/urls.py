@@ -38,6 +38,8 @@ urlpatterns = [
     path('provider/dashboard/',ProviderDashboard.as_view(), name='provider_dashboard'),
     path('provider/services/available/',AvailableServices.as_view(), name='available_services'),
     path('provider/add/service/<id>',AddToMyService.as_view(), name='add_service'),
+    path('provider/my/services/',MyServices.as_view(), name='my_services'),
+    path('provider/service/product/<id>',Product.as_view(), name='product'),
 
     path('user/signup/',UserSignup.as_view(), name='user_signup'),
     path('user/dashboard/',UserDashboard.as_view(), name='user_dashboard'),

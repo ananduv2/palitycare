@@ -98,6 +98,7 @@ class SubProduct(models.Model):
     name = models.CharField(max_length=250)
     count = models.IntegerField(null=True, blank=True)
     cost = models.IntegerField()
+    details = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return self.name
