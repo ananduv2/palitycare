@@ -36,6 +36,8 @@ urlpatterns = [
 
     path('provider/signup/',ProviderSignUp.as_view(), name='provider_signup'),
     path('provider/dashboard/',ProviderDashboard.as_view(), name='provider_dashboard'),
+    path('provider/services/available/',AvailableServices.as_view(), name='available_services'),
+    path('provider/add/service/<id>',AddToMyService.as_view(), name='add_service'),
 
     path('user/signup/',UserSignup.as_view(), name='user_signup'),
     path('user/dashboard/',UserDashboard.as_view(), name='user_dashboard'),

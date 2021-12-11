@@ -83,4 +83,47 @@ class Service(models.Model):
     def __str__(self):
         return self.category
 
+class ProviderService(models.Model):
+    user = models.ForeignKey(Users,on_delete=models.CASCADE,null=True, blank=True)
+    service = models.ForeignKey(Service, on_delete=models.CASCADE,null=True, blank=True)
+    count = models.IntegerField(null=True, blank=True)
+    cost = models.IntegerField()
+
+    def __str__(self):
+        return ("%s_%s") %(self.user,self.service)
+    
+
+class SubProduct(models.Model):
+    service = models.ForeignKey(ProviderService, on_delete=models.CASCADE,null=True, blank=True)
+    name = models.CharField(max_length=250)
+    count = models.IntegerField(null=True, blank=True)
+    cost = models.IntegerField()
+
+    def __str__(self):
+        return self.name
+
+class UserFavorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    service = models.ForeignKey(ProviderService, on_delete=models.CASCADE,null=True, blank=True)
+    product = models.ForeignKey(SubProduct, on_delete=models.CASCADE,null=True, blank=True)
+
+class Review(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    service = models.ForeignKey(ProviderService, on_delete=models.CASCADE,null=True, blank=True)
+    product = models.ForeignKey(SubProduct, on_delete=models.CASCADE,null=True, blank=True)
+    message = models.TextField()
+    datetime = models.DateTimeField()
+
+class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    service = models.ForeignKey(ProviderService, on_delete=models.CASCADE,null=True, blank=True)
+    product = models.ForeignKey(SubProduct, on_delete=models.CASCADE,null=True, blank=True)
+    booking_id = models.CharField(max_length=250)
+    datetime = models.DateTimeField()
+    amount_transferred = models.CharField(max_length=250)
+
+
+
+
+
 

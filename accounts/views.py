@@ -223,6 +223,36 @@ class UserDashboard(View):
         else:
             return redirect('home')
 
+class AvailableServices(View):
+    def get(self, request):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            name = []
+            provider_service = ProviderService.objects.filter(user=account)
+            for i in provider_service:
+                name.append(i.service)
+            services = Service.objects.exclude(category__in=name)
+            print(services)       
+            context = {'account': account, 'services': services}
+            return render(request,'provider/available_services.html',context)
+
+class AddToMyService(View):
+    def post(self, request,id):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            service = Service.objects.get(id=id)
+            count = request.POST.get('count')
+            cost = request.POST.get('cost')
+            ps = ProviderService(user=account,service=service,count=count,cost=cost)
+            ps.save()
+        return redirect('available_services')
+
+
+
 
 
 

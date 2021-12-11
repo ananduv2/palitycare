@@ -63,18 +63,19 @@
 
                 {% for i in services %}
                 <div class="col-lg-4 col-md-4  col-sm-6 sm-mb-40px wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;margin-top: 30px;">
-                    <div class="pricing hover-effect">
-                        <div class="pricing-head text-center">
-                            <h3 class="font-weight-700 padding-40px background-main-color margin-0px text-white">
-                                <span class=" z-index-2 position-relative d-block">{{i.category|title}}<span class="d-block text-small font-weight-300"></span>
-                                </span>
-                            </h3>
+                    <a href="#" data-toggle="modal" data-target="#updateservice_{{i.id}}">
+                        <div class="pricing hover-effect">
+                            <div class="pricing-head text-center">
+                                <h3 class="font-weight-700 padding-40px background-main-color margin-0px text-white">
+                                    <span class=" z-index-2 position-relative d-block">{{i.category|title}}<span class="d-block text-small font-weight-300"></span>
+                                    </span>
+                                </h3>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                     <div class="pricing-footer">
-                        <div class="container-fluid">
-                            <div class="row" style="align-items: center;">
-                                <button class="btn btn-info btn-sm border-radius-30  text-white background-second-color  box-shadow  padding-lr-25px margin-left-30px" data-toggle="modal" data-target="#updateservice_{{i.id}}"><i class="ti ti-pencil"></i> Update</button>
+                        <a href="#" class="btn btn-block background-grey-1 text-dark rounded-0" data-toggle="modal" data-target="#deleteservice_{{i.id}}"><i class="ti ti-trash"></i> Delete</a>
+                        
 
                                 <div class="modal fade" id="updateservice_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -89,7 +90,7 @@
                                             <div class="modal-body">
                                                 
                                                     {% csrf_token %}
-                                                    <input type="text" name="update_service_name" value="{{i.category|title}}">
+                                                    <input type="text" class="form-control" name="update_service_name" value="{{i.category|title}}">
                                             </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -100,13 +101,11 @@
                                     </div>
                                 </div>
 
-                                <button class="btn btn-danger btn-sm border-radius-30  text-white background-second-color  box-shadow  padding-lr-25px margin-left-30px" data-toggle="modal" data-target="#deleteservice_{{i.id}}"><i class="ti ti-trash"></i> Delete</button>
-
                                 <div class="modal fade" id="deleteservice_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Delete Service</h5>
+                                                <h5 class="modal-title" id="exampleModalLabel">{{i.category|title}} Service</h5>
                                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">×</span>
                                         </button>
@@ -115,9 +114,7 @@
                                             <div class="modal-body">
                                                 
                                                     {% csrf_token %}
-                                                    {% load widget_tweaks %} 
-                                                    <input type="text" value="{{i.category|title}}" disabled="true">
-                                                    Are you sure you want to delete this service?
+                                                    <p><b>Are you sure you want to delete this service?</b></p>
                                             </div>
                                             <div class="modal-footer">
                                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
@@ -126,8 +123,7 @@
                                         </form>
                                         </div>
                                     </div>
-                                </div>
-                            </div> 
+                                
                         </div>
                     </div>
                 </div>
