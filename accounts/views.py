@@ -159,7 +159,8 @@ class UserSignup(View):
             profile = dataform.save(commit=False)
             profile.user = user
             profile.email = user.username
-            profile.approval = Approved
+            profile.type='public'
+            profile.approval = '1'
             try:
                 profile.save()
             except:
@@ -187,8 +188,8 @@ class ProviderSignUp(View):
             profile = dataform.save(commit=False)
             profile.user = user
             profile.email = user.username
-            profile.type='public'
-            profile.approval = 'Approved'
+            profile.type='service_provider'
+            profile.approval = '1'
             try:
                 profile.save()
             except:

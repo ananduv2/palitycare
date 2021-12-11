@@ -48,9 +48,9 @@ user_type=(
 )
 
 approval_choices=(
-    ('Pending','Pending'),
-    ('Approved','Approved'),
-    ('Rejected','Rejected')
+    ('2','Pending'),
+    ('1','Approved'),
+    ('3','Rejected')
 )
 
 class Users(models.Model):
