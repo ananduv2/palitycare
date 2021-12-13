@@ -39,6 +39,7 @@
                 
                     <div class="margin-bottom-45px full-width">
                         <form method="post" action>
+                            {% csrf_token %}
                         <div class="padding-30px background-white border-radius-20 box-shadow">
                             <h3><i class="far fa-list-alt margin-right-10px text-main-color"></i> Your Review </h3>
                             <hr>
@@ -46,6 +47,9 @@
                                 <!-- <textarea class="form-control" placeholder="Enter  Admin Message  here" id="exampleTextarea" rows="3"></textarea> -->
                                 {% load widget_tweaks %}
                                 {%  render_field form.message class="form-control"  placeholder="Enter  your review" id="exampleTextarea" rows="3" required="true" %}
+                            </div>
+                            <div>
+                                <input type="submit" class="btn btn-primary" value="Submit">
                             </div>
                         </div>
                         </form>

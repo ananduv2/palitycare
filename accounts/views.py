@@ -346,6 +346,8 @@ class PublicService(View):
             products = SubProduct.objects.all()
             context = {'account': account,'services': services,'products':products}
             return render(request, 'user/services.html',context)
+        else:
+            return redirect('home')
 
 
 class AddToFavouriteService(View):
@@ -356,7 +358,7 @@ class AddToFavouriteService(View):
             account = Users.objects.get(user=user)
             service = ProviderService.objects.get(id=id)
             try:
-                fav = UserFavorite.objects.get(user=user,service=service)
+                fav = UserFavorite.objects.filter(user=account,service=service)
                 if fav:
                     fav.delete()
                     return redirect('user_services')
@@ -406,12 +408,22 @@ class WriteReview(View):
             if form.is_valid:
                 f = form.save(commit=False)
                 f.user = account
-                f.service = fav.service
+                f.service = fav
                 f.datetime = datetime.datetime.now()
                 f.save()
                 return redirect('user_services')
         else:
             return redirect('home')
+
+class MyReviews(View):
+    def get(self, request):
+        x = UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            review = Review.objects.filter(user=account)
+
+
                 
             
 
