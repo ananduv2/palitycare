@@ -422,6 +422,21 @@ class MyReviews(View):
             user = request.user
             account = Users.objects.get(user=user)
             review = Review.objects.filter(user=account)
+            print(review)
+            context ={'account': account,'review': review}
+            return render(request,'user/myreview.html',context)
+        
+        
+class ServiceReviews(View):
+    def get(self,request,id):
+        user = request.user
+        if user.is_authenticated:
+            account = Users.objects.get(user=user)
+            ps = ProviderService.objects.get(id = id)
+            review = Review.objects.filter(service = ps)
+            context ={'account': account,'review' : review,'ps':ps}
+            return render(request,'common/service_reviews.html',context)
+           
 
 
                 

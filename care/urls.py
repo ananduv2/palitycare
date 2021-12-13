@@ -31,24 +31,26 @@ urlpatterns = [
 
     path('administrator/dashboard/',AdminDashboard.as_view(), name='admin_dashboard'),
     path('administrator/services/',AllServices.as_view(), name='admin_services'),
-    path('administrator/services/update/<id>',UpdateService.as_view(), name='update_admin_service'),
-    path('administrator/services/delete/<id>',DeleteService.as_view(), name='delete_admin_service'),
+    path('administrator/services/update/<id>/',UpdateService.as_view(), name='update_admin_service'),
+    path('administrator/services/delete/<id>/',DeleteService.as_view(), name='delete_admin_service'),
 
     path('provider/signup/',ProviderSignUp.as_view(), name='provider_signup'),
     path('provider/dashboard/',ProviderDashboard.as_view(), name='provider_dashboard'),
     path('provider/services/available/',AvailableServices.as_view(), name='available_services'),
-    path('provider/add/service/<id>',AddToMyService.as_view(), name='add_service'),
+    path('provider/add/service/<id>/',AddToMyService.as_view(), name='add_service'),
     path('provider/my/services/',MyServices.as_view(), name='my_services'),
-    path('provider/service/product/<id>',Product.as_view(), name='product'),
-    path('provider/remove/service/<id>',RemoveService.as_view(), name='remove_service'),
-    path('provider/remove/product/<id>',RemoveProduct.as_view(), name='remove_product'),
+    path('provider/service/product/<id>/',Product.as_view(), name='product'),
+    path('provider/remove/service/<id>/',RemoveService.as_view(), name='remove_service'),
+    path('provider/remove/product/<id>/',RemoveProduct.as_view(), name='remove_product'),
 
     path('user/signup/',UserSignup.as_view(), name='user_signup'),
     path('user/dashboard/',UserDashboard.as_view(), name='user_dashboard'),
     path('user/services/',PublicService.as_view(), name='user_services'),
     path('user/add/favourite/service/<id>/',AddToFavouriteService.as_view(), name='add_to_fav_service'),
     path('user/favourite/',MyFavorite.as_view(), name='my_favourite'),
-    path('user/write/review/<id>',WriteReview.as_view(), name='write_review'),
+    path('user/write/review/<id>/',WriteReview.as_view(), name='write_review'),
+    path('user/my/review/',MyReviews.as_view(),name='my_reviews'),
+    path('user/service/reviews/<id>/',ServiceReviews.as_view(),name='service_reviews'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
