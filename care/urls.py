@@ -41,9 +41,14 @@ urlpatterns = [
     path('provider/my/services/',MyServices.as_view(), name='my_services'),
     path('provider/service/product/<id>',Product.as_view(), name='product'),
     path('provider/remove/service/<id>',RemoveService.as_view(), name='remove_service'),
+    path('provider/remove/product/<id>',RemoveProduct.as_view(), name='remove_product'),
 
     path('user/signup/',UserSignup.as_view(), name='user_signup'),
     path('user/dashboard/',UserDashboard.as_view(), name='user_dashboard'),
+    path('user/services/',PublicService.as_view(), name='user_services'),
+    path('user/add/favourite/service/<id>/',AddToFavouriteService.as_view(), name='add_to_fav_service'),
+    path('user/favourite/',MyFavorite.as_view(), name='my_favourite'),
+    path('user/write/review/<id>',WriteReview.as_view(), name='write_review'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

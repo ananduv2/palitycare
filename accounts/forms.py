@@ -31,3 +31,8 @@ class AddSubProductForm(ModelForm):
     class Meta:
         model = SubProduct
         fields = ['name', 'count','cost','details']
+
+class AddReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['message']

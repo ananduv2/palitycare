@@ -114,6 +114,14 @@
                                     </span>
                                 </h3>
                             </div>
+                            <ul class="pricing-content text-center list-unstyled background-white">
+                                <li><strong>{{i.count}}</strong> Count</li>
+                                <li><strong>{{i.cost}}</strong> Basic Charge</li>
+                                <li>{{i.details}}</li>
+                            </ul>
+                            <div class="pricing-footer">
+                                <a href="{% url 'remove_product' i.id %}" class="btn btn-block background-grey-1 text-dark rounded-0">Delete</a>
+                            </div>
                         </div>
                     </a>
                 </div>

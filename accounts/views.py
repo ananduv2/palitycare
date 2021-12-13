@@ -8,6 +8,8 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import PasswordChangeForm
 from django.template import RequestContext
+import time
+import datetime
 
 from .models import *
 from .functions import *
@@ -320,6 +322,108 @@ class RemoveService(View):
             return redirect('my_services')
         else:
             return redirect('home')
+
+class RemoveProduct(View):
+     def get(self, request,id):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            product = SubProduct.objects.get(id=id)
+            service = product.service
+            product.delete()
+            return redirect('product',id= service.id)
+        else:
+            return redirect('home')
+
+class PublicService(View):
+    def get(self, request):
+        x= UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            services = ProviderService.objects.all()
+            products = SubProduct.objects.all()
+            context = {'account': account,'services': services,'products':products}
+            return render(request, 'user/services.html',context)
+
+
+class AddToFavouriteService(View):
+    def get(self, request,id):
+        x= UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            service = ProviderService.objects.get(id=id)
+            try:
+                fav = UserFavorite.objects.get(user=user,service=service)
+                if fav:
+                    fav.delete()
+                    return redirect('user_services')
+                else:
+                    fav = UserFavorite(user=account,service=service)
+                    fav.save()
+                    return redirect('user_services')
+            except:
+                fav = UserFavorite(user=account,service=service)
+                fav.save()
+                return redirect('user_services')
+        else:
+            return redirect('home')
+
+class MyFavorite(View):
+    def get(self, request):
+        x = UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            fs = UserFavorite.objects.filter(user=account)
+            context = {'account': account,'fs': fs}
+            return render(request,'user/favourite.html',context)
+        else:
+            return redirect('home')
+
+class WriteReview(View):
+    def get(self, request,id):
+        x = UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            fav = ProviderService.objects.get(id=id)
+            form = AddReviewForm()
+            context ={'account': account,'form': form}
+            return render(request,'user/write_review.html',context)
+        else:
+            return redirect('home')
+
+    def post(self, request,id):
+        x = UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            fav = ProviderService.objects.get(id=id)
+            form = AddReviewForm(request.POST)
+            if form.is_valid:
+                f = form.save(commit=False)
+                f.user = account
+                f.service = fav.service
+                f.datetime = datetime.datetime.now()
+                f.save()
+                return redirect('user_services')
+        else:
+            return redirect('home')
+                
+            
+
+
+
+
+
+
+
+
+
+
 
 
 

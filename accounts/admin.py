@@ -4,3 +4,5 @@ from . models import *
 admin.site.register(Users)
 admin.site.register(Service)
 admin.site.register(ProviderService)
+admin.site.register(SubProduct)
+admin.site.register(UserFavorite)

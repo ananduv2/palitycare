@@ -21,6 +21,11 @@
         <div class="form-output">
             <form method="post" action>
                 {% csrf_token %}
+                {% if msg %}
+                <div class="form-group label-floating">
+                    <code>{{ msg }}</code>
+                </div>
+                {% endif %}
                 <div class="form-group label-floating">
                     <label class="control-label">Your Email</label>
                     <input name="username" class="form-control" placeholder="" type="text">
@@ -33,7 +38,7 @@
                 <div class="remember">
                     <a href="#" class="forgot">Forgot my Password</a>
                 </div>
-
+                
                 <button type="submit" class="btn btn-md btn-primary full-width">Login</button>
 
                 <div class="or"></div>
