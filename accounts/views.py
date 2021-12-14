@@ -29,8 +29,8 @@ class LoginView(View):
     def get(self, request):
         user = request.user
         if user.is_authenticated:
-            # return redirect('home')
-            return HttpResponse("Logged In")
+            return redirect('home')
+            # return HttpResponse("Logged In")
         else:
             msg=""
             return render(request,'common/login.html',{'msg':msg})
@@ -40,9 +40,17 @@ class LoginView(View):
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
-            return redirect('home')
-            # return HttpResponse("Logged In")
+            account = Users.objects.get(user=user)
+            if account.type=='service_provider'and account.approval == '2':
+                msg = "Your profile is awaiting admin approval."
+                return render(request,'common/login.html',{'msg':msg})
+            elif account.type=='service_provider'and account.approval == '3':
+                msg = "Your profile has been rejected.Sorry!"
+                return render(request,'common/login.html',{'msg':msg})
+            else:
+                login(request, user)
+                return redirect('home')
+                # return HttpResponse("Logged In")
         else:
             msg = "Invalid login credentials"
             return render(request,'common/login.html',{'msg':msg})
