@@ -33,6 +33,11 @@ urlpatterns = [
     path('administrator/services/',AllServices.as_view(), name='admin_services'),
     path('administrator/services/update/<id>/',UpdateService.as_view(), name='update_admin_service'),
     path('administrator/services/delete/<id>/',DeleteService.as_view(), name='delete_admin_service'),
+    path('administrator/public/users/',ViewUsers.as_view(), name='public_users'),
+    path('administrator/providers/',ViewServiceProviders.as_view(), name='service_providers'),
+    path('administrator/pending/provider/',PendingApproval.as_view(), name='pending_approval'),
+    path('administrator/approve/provider/<id>/', ApproveAccount.as_view(), name='approve_account'),
+    path('administrator/reject/provider/<id>/', RejectAccount.as_view(), name='reject_account'),
 
     path('provider/signup/',ProviderSignUp.as_view(), name='provider_signup'),
     path('provider/dashboard/',ProviderDashboard.as_view(), name='provider_dashboard'),

@@ -18,12 +18,25 @@
             <span class="nav-link-text">All Services</span>
           </a>
             </li>
-            <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Favorites">
-                <a class="nav-link" href="dashboard-my-favorites.html">
-            <i class="fa fa-fw fa-heart"></i>
-            <span class="nav-link-text">My Favorites</span>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Favorites">
+                <a class="nav-link" href="{% url 'service_providers' %}">
+            <i class="fa fa-fw fa-users"></i>
+            <span class="nav-link-text">Service Providers</span>
           </a>
-            </li> -->
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Favorites">
+                <a class="nav-link" href="{% url 'pending_approval' %}">
+            <i class="fa fa-fw fa-users"></i>
+            <span class="nav-link-text">Pending Approvals</span>
+          </a>
+            </li>
+
+        </li>
+        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Favorites">
+            <a class="nav-link" href="{% url 'public_users' %}">
+        <i class="fa fa-fw fa-users"></i>
+        <span class="nav-link-text">Public Users</span>
+      </a>
             <!-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
                 <a class="nav-link" href="dashboard-reviews.html">
             <i class="fa fa-fw fa-star"></i>

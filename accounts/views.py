@@ -447,6 +447,81 @@ class ServiceReviews(View):
             return render(request,'common/service_reviews.html',context)
         else:
             return redirect('home')
+
+class PendingApproval(View):
+    def get(self,request):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            requests = Users.objects.filter(type='service_provider',approval='2')
+            context = {'account': account,'requests': requests}
+            return render(request,'admin/verify.html', context)
+        else:
+            return redirect('home')
+
+class ApproveAccount(View):
+    def post(self,request,id):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            pa = Users.objects.get(id=id)
+            pa.approval = '1'
+            pa.save()
+            subject = "Account Approved"
+            message = "Hi there!\n\nYour account with paliative care has been approved.Please proceed to login in the portal"
+            to=pa.email
+            MailSend(request,subject,message,to)
+            return redirect('service_providers') 
+        else:
+            return redirect('home')  
+
+
+class RejectAccount(View):
+    def post(self,request,id):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            pa = Users.objects.get(id=id)
+            pa.approval = '3'
+            pa.save()
+            subject = "Account Rejected"
+            message = "Hi there!\n\nYour account with paliative care has been rejected."
+            to=pa.email
+            MailSend(request,subject,message,to)
+            return redirect('service_providers') 
+        else:
+            return redirect('home')  
+
+
+class ViewServiceProviders(View):
+    def get(self, request):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            sp = Users.objects.filter(type='service_provider',approval='1')
+            context = {'account': account,'sp': sp}
+            return render(request,'admin/service_providers.html',context)
+
+
+class ViewUsers(View):
+    def get(self, request):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            sp = Users.objects.filter(type='public')
+            context = {'account': account,'sp': sp}
+            return render(request,'admin/public_users.html',context)
+        else:
+            return redirect('home')
+
+
+
+
            
 
 

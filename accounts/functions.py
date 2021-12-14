@@ -1,4 +1,5 @@
 from .models import *
+from django.core.mail import send_mail
 
 
 def AdminCheck(request):
@@ -42,3 +43,14 @@ def UserCheck(request):
             return (False)
     else:
         return (False)
+
+
+def MailSend(request,subject,message,to):
+    send_mail(
+        subject,
+        message,
+        'palliativecare197@gmail.com',
+        [to],
+        fail_silently=False,
+    )
+    
