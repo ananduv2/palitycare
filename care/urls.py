@@ -44,9 +44,11 @@ urlpatterns = [
     path('provider/services/available/',AvailableServices.as_view(), name='available_services'),
     path('provider/add/service/<id>/',AddToMyService.as_view(), name='add_service'),
     path('provider/my/services/',MyServices.as_view(), name='my_services'),
+    path('provider/my/products/',MyProducts.as_view(), name='my_products'),
     path('provider/service/product/<id>/',Product.as_view(), name='product'),
     path('provider/remove/service/<id>/',RemoveService.as_view(), name='remove_service'),
     path('provider/remove/product/<id>/',RemoveProduct.as_view(), name='remove_product'),
+    path('provider/product/review/',MyProductReview.as_view(), name='my_product_review'),
 
     path('user/signup/',UserSignup.as_view(), name='user_signup'),
     path('user/dashboard/',UserDashboard.as_view(), name='user_dashboard'),

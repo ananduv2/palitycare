@@ -46,10 +46,13 @@
                                 <div class="d-block padding-tb-5px">Organization :  <a href="#" class="text-main-color">{{i.organization|title}}</a></div>
                                 <div class="d-block padding-tb-5px">Email :  <a href="#" class="text-main-color">{{i.email}}</a></div>
                                 <div class="d-block padding-tb-5px">Phone  :  <a href="#" class="text-main-color">{{i.mob}}</a></div>
+                                {% if i.document %}
                                 <a href="{{i.document.url}}" target="_blank" class="d-inline-block text-grey-2 text-up-small"><i class="far fa-file-alt"></i> Document</a>
+                               {% endif %}
                                 <a href="" class="d-inline-block text-grey-2 text-up-small"  data-toggle="modal" data-target="#Approve_{{i.id}}"><i class="fa fa-tick"></i> Approve</a>
                                 
                                 <a href="{% url 'reject_account' i.id %}" class="d-inline-block margin-lr-20px text-grey-2 text-up-small"><i class="far fa-window-close"></i> Reject</a>
+                            
                             </div>
                         </div>
                     </div>

@@ -18,14 +18,27 @@
             <span class="nav-link-text">All Services</span>
           </a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Favorites">
+            <!--<li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Favorites">
                 <a class="nav-link" href="{% url 'my_services' %}">
             <i class="fa fa-fw fa-heart"></i>
             <span class="nav-link-text">My Services/Products</span>
           </a>
+            </li>-->
+            
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Favorites">
+                <a class="nav-link" href="{% url 'my_services' %}">
+            <i class="fa fa-fw fa-heart"></i>
+            <span class="nav-link-text">My Services</span>
+          </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
-                <a class="nav-link" href="dashboard-reviews.html">
+                <a class="nav-link" href="{% url 'my_products' %}">
+            <i class="fa fa-fw fa-heart"></i>
+            <span class="nav-link-text">My Products</span>
+          </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Reviews">
+                <a class="nav-link" href="{% url 'my_product_review' %}">
             <i class="fa fa-fw fa-star"></i>
             <span class="nav-link-text">Reviews</span>
           </a>

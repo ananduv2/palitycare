@@ -277,12 +277,25 @@ class MyServices(View):
             user = request.user
             account = Users.objects.get(user=user)
             ps = ProviderService.objects.filter(user=account)
-            sp = SubProduct.objects.filter(service__user=account)
-            context = {'account': account,'ps': ps,'sp':sp}
+            #sp = SubProduct.objects.filter(service__user=account)
+            context = {'account': account,'ps': ps}
             return render(request,'provider/my_services.html',context)
         else:
             return redirect('home')
 
+class MyProducts(View):
+    def get(self, request):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            #ps = ProviderService.objects.filter(user=account)
+            sp = SubProduct.objects.filter(service__user=account)
+            print (sp)
+            context = {'account': account,'sp':sp}
+            return render(request,'provider/my_products.html',context)
+        else:
+            return redirect('home')
 class Product(View):
     def get(self,request,id):
         x = ProviderCheck(request)
@@ -520,7 +533,21 @@ class ViewUsers(View):
             return redirect('home')
 
 
-
+class MyProductReview(View):
+    def get(self,request):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            r = Review.objects.filter(service__user = account)
+            context = {'account': account,'r' : r}
+            return render(request,'provider/product_review.html',context)
+        else:
+            return redirect('home')
+            
+            
+            
+    
 
            
 

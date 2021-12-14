@@ -14,12 +14,12 @@
                 <ol class="breadcrumb opacity-5">
                     <li><a href="{% url 'home' %}">Dashboard</a></li>
                     <li><i class="ti ti-arrow-circle-right"></i></li>
-                    <li class="active">My Services</li>
+                    <li class="active">My Products</li>
                 </ol>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-6">
-                            <h1 class="font-weight-300">My Services</h1>
+                            <h1 class="font-weight-300">My Products</h1>
                         </div>
                         <div class="col-6">
                             <div class="text-right">
@@ -37,13 +37,13 @@
         <div class="container-fluid">
             <div class="row" style="margin-top:40px">
 
-                {% for i in ps %}
+                {% for i in sp %}
                 <div class="col-lg-4 col-md-4  col-sm-6 sm-mb-40px wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;margin-top: 30px;">
                     <a href="{% url 'product' i.id %}">
                         <div class="pricing hover-effect">
                             <div class="pricing-head text-center">
                                 <h3 class="font-weight-700 padding-40px background-main-color margin-0px text-white">
-                                    <span class=" z-index-2 position-relative d-block">{{i.service.category|title}}<span class="d-block text-small font-weight-300"></span>
+                                    <span class=" z-index-2 position-relative d-block">{{i.name|title}}<span class="d-block text-small font-weight-300"></span>
                                     </span>
                                 </h3>
                             </div>

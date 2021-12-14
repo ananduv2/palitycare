@@ -46,7 +46,9 @@
                                 <div class="d-block padding-tb-5px">Organization :  <a href="#" class="text-main-color">{{i.organization|title}}</a></div>
                                 <div class="d-block padding-tb-5px">Email :  <a href="#" class="text-main-color">{{i.email}}</a></div>
                                 <div class="d-block padding-tb-5px">Phone  :  <a href="#" class="text-main-color">{{i.mob}}</a></div>
+                                {% if i.document %}
                                 <a href="{{i.document.url}}" target="_blank" class="d-inline-block text-grey-2 text-up-small"><i class="far fa-file-alt"></i> Document</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
