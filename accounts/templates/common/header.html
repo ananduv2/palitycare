@@ -60,7 +60,7 @@
                     <hr class="margin-bottom-0px d-block d-sm-none">
                     {% if request.user.is_authenticated %}
                         
-                    <a href="{% url 'home' %}" class="margin-top-15px d-inline-block text-grey-3 margin-right-15px"><img src="{% static 'assets/img/testimonial-3.png' %}" class="height-30px border-radius-30" alt=""> {{account.name|title}}</a>
+                    <a href="{% url 'home' %}" class="margin-top-15px d-inline-block text-grey-3 margin-right-15px"><img src="{{account.profile_picture.url}}" class="height-30px border-radius-30" alt=""> {{account.name|title}}</a>
                     <a href="{% url 'logout' %}" class="margin-tb-20px d-inline-block text-up-small float-left float-lg-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</a>
                     
                     {% else %}

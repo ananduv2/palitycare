@@ -84,7 +84,8 @@ class AdminDashboard(View):
             providers = Users.objects.filter(type='service_provider').count()
             public = Users.objects.filter(type='public').count()
             services = Service.objects.all().count()
-            context = {'account': account,'providers': providers,'public': public,'services': services}
+            review = Review.objects.all().count()
+            context = {'account': account,'providers': providers,'public': public,'services': services,'review': review}
             return render(request, 'admin/dashboard.html', context)
         else:
             return redirect('home')
@@ -436,6 +437,8 @@ class ServiceReviews(View):
             review = Review.objects.filter(service = ps)
             context ={'account': account,'review' : review,'ps':ps}
             return render(request,'common/service_reviews.html',context)
+        else:
+            return redirect('home')
            
 
 

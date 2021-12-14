@@ -71,6 +71,7 @@ class Users(models.Model):
     type = models.CharField(max_length=20,choices=user_type)
     approval = models.CharField(max_length=20,choices=approval_choices,default='Pending')
     document = models.FileField(upload_to='documents',null=True, blank=True)
+    profile_picture = models.FileField(upload_to='dp',default='assets/img/user3.png')
 
     def __str__(self):
         return self.name
