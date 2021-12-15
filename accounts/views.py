@@ -192,7 +192,7 @@ class ProviderSignUp(View):
 
     def post(self, request):
         form = PublicUserCreationForm(request.POST)
-        dataform = UserSignUpForm(request.POST,request.FILES)
+        dataform = ProviderSignUpForm(request.POST,request.FILES)
         if form.is_valid() and dataform.is_valid():
             user = form.save(commit=False)
             user.email = user.username
@@ -209,7 +209,7 @@ class ProviderSignUp(View):
             return redirect('login')
         else:
             context = {'form': form,'dataform': dataform}
-            return render(request,'user/signup.html',context)
+            return render(request,'provider/signup.html',context)
 
 
 class ProviderDashboard(View):
