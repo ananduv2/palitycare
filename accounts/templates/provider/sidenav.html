@@ -74,6 +74,12 @@
                     <span class="nav-link-text">My Profile</span>
                 </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Profile">
+                <a class="nav-link" href="{% url 'change_password' %}">
+                    <i class="fas fa-fw fa-key"></i>
+                    <span class="nav-link-text">Change Password</span>
+                </a>
+            </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sing Out">
                 <a class="nav-link" href="{% url 'logout' %}" data-toggle="modal" data-target="#exampleModal">
                     <i class="fa fa-fw fa-sign-out-alt"></i>

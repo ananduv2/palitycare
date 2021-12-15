@@ -29,6 +29,7 @@ urlpatterns = [
     path('home/',Home.as_view(), name='home'),
     path('profile/',MyProfile.as_view(), name='profile'),
     path('update/dp/',UpdateProfilePic.as_view(), name='update_pic'),
+    path('change/password/',PasswordChangeView.as_view(), name='change_password'),
 
 
     path('administrator/dashboard/',AdminDashboard.as_view(), name='admin_dashboard'),

@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from django.template import RequestContext
 import time
 import datetime
@@ -60,6 +61,36 @@ class LogoutView(View):
         logout(request)
         return redirect('login')
 
+class PasswordChangeView(View):
+    def get(self, request):
+        user = request.user
+        if user.is_authenticated: 
+            form = PasswordChangeForm(user=user)
+            account = Users.objects.get(user=user)
+            context = {'form': form, 'account': account}
+            return render(request,'common/password_change.html',context)
+        else:
+            return redirect('home')  
+
+    def post(self, request):
+        user = request.user
+        if user.is_authenticated:
+            form = PasswordChangeForm(user=user, data=request.POST)
+            if form.is_valid():
+                form.save()
+                update_session_auth_hash(request, form.user)
+                msg="Password Updated successfully"
+                account = Users.objects.get(user=user)
+                context = {'form': form,'account': account,'msg': msg}
+                return render(request,'common/password_change.html',context)
+            else:
+                account = Users.objects.get(user=user)
+                context = {'form': form,'account': account}
+                return render(request,'common/password_change.html',context)
+        else:
+            return redirect('home')
+
+                
 class Home(View):
     def get(self, request):
         user = request.user
