@@ -27,6 +27,8 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(),name='logout'),
     path('home/',Home.as_view(), name='home'),
+    path('profile/',MyProfile.as_view(), name='profile'),
+    path('update/dp/',UpdateProfilePic.as_view(), name='update_pic'),
 
 
     path('administrator/dashboard/',AdminDashboard.as_view(), name='admin_dashboard'),
@@ -58,6 +60,7 @@ urlpatterns = [
     path('user/write/review/<id>/',WriteReview.as_view(), name='write_review'),
     path('user/my/review/',MyReviews.as_view(),name='my_reviews'),
     path('user/service/reviews/<id>/',ServiceReviews.as_view(),name='service_reviews'),
+
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

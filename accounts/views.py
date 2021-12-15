@@ -545,6 +545,60 @@ class MyProductReview(View):
         else:
             return redirect('home')
             
+
+class MyProfile(View):
+    def get(self,request):
+        user = request.user
+        if user.is_authenticated:
+            account = Users.objects.get(user=user)
+            if account.type == 'admin':
+                form = AdminProfileEditForm(instance=account)
+            elif account.type == 'service_provider':
+                form = ServiceProviderProfileEditForm(instance=account)
+            else:
+                form = PublicProfileEditForm(instance=account)
+            picform = UpdatePic()
+            context = {'form': form, 'account': account,'picform': picform}
+            return render(request,'common/edit_profile.html',context)
+        else:
+            return redirect('logout')
+
+    def post(self,request):
+        user = request.user
+        if user.is_authenticated:
+            account = Users.objects.get(user=user)
+            if account.type == 'admin':
+                form = AdminProfileEditForm(request.POST,instance=account)
+            elif account.type == 'service_provider':
+                form = ServiceProviderProfileEditForm(request.POST,instance=account)
+            else:
+                form = PublicProfileEditForm(request.POST,instance=account)
+            if form.is_valid:
+                form.save()
+                return redirect('home')
+            else:
+                context = {'form': form, 'account': account}
+                return render(request,'common/edit_profile.html',context)
+        else:
+            return redirect('logout')
+
+class UpdateProfilePic(View):
+    def post(self, request):
+        user = request.user
+        if user.is_authenticated:
+            account = Users.objects.get(user=user)
+            form = UpdatePic(request.POST,request.FILES,instance=account)
+            if form.is_valid:
+                form.save()
+                return redirect('profile')
+            else:
+                return redirect('profile')
+        else:
+            return redirect('home')
+
+            
+
+
             
             
     

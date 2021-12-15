@@ -56,7 +56,7 @@
                 <span class="nav-title-text">User Area</span>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="My Profile">
-                <a class="nav-link" href="dashboard-my-profile.html">
+                <a class="nav-link" href="{% url 'profile' %}">
                     <i class="fa fa-fw fa-user-circle"></i>
                     <span class="nav-link-text">My Profile</span>
                 </a>
@@ -64,7 +64,7 @@
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sing Out">
                 <a class="nav-link" href="{% url 'logout' %}" data-toggle="modal" data-target="#exampleModal">
                     <i class="fa fa-fw fa-sign-out-alt"></i>
-                    <span class="nav-link-text">Sing Out</span>
+                    <span class="nav-link-text">Sign Out</span>
                 </a>
             </li>
         </ul>

@@ -36,3 +36,24 @@ class AddReviewForm(ModelForm):
     class Meta:
         model = Review
         fields = ['message']
+
+class AdminProfileEditForm(ModelForm):
+    class Meta:
+        model = Users
+        fields = ['name','email','mob','sex']
+
+class ServiceProviderProfileEditForm(ModelForm):
+    class Meta:
+        model = Users
+        fields = ['name','email','mob','organization','house','street1','street2','city','district','state','pin','age','sex']
+
+class PublicProfileEditForm(ModelForm):
+    class Meta:
+        model = Users
+        fields = ['name','email','mob','house','street1','street2','city','district','state','pin','age','sex']
+
+class UpdatePic(ModelForm):
+    class Meta:
+        model = Users
+        fields = ['profile_picture']
+
