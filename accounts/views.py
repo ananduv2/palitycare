@@ -627,6 +627,36 @@ class UpdateProfilePic(View):
         else:
             return redirect('home')
 
+class MakeServiceBooking(View):
+    def get(self, request,id):
+        x = UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            service = ProviderService.objects.get(id=id)
+            context = {'account': account,'service': service}
+            return render(request,'user/make_booking.html',context)
+        else:
+            return redirect('home')
+
+class ApproveBooking(View):
+    def get(self, request,id,tid):
+        x = UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            service = ProviderService.objects.get(id=id)
+            dt = datetime.datetime.now()
+            amt = service.cost
+            booking = Booking(user=account,service=service,booking_id=tid,datetime=dt,amount_transferred=amt)
+            booking.save()
+            context = {'account': account, 'booking': booking,'service': service}
+            return render(request,'user/my_booking.html',context)
+        else:
+            return redirect('home')
+
+
+
             
 
 
