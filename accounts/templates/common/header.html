@@ -13,7 +13,7 @@
                     <ul id="menu-main" class="nav-menu float-lg-right link-padding-tb-20px">
                         <li><a href="{% url 'index' %}">Home</a>
                         </li>
-                        <li class="has-dropdown"><a href="#">Listings</a>
+                        <!-- <li class="has-dropdown"><a href="#">Listings</a>
                             <ul class="sub-menu">
                                 <li><a href="map-grid-layout.html">Map - Grid Layout </a></li>
                                 <li><a href="map-list-layout.html">Map - List Layout</a></li>
@@ -21,7 +21,7 @@
                                 <li><a href="doctor-layout-2.html">Doctor - Layout (2)</a></li>
                                 <li><a href="single-listings.html">Single Listings</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li><a href="{% url 'home' %}">Dashboard</a>
                             <!-- <ul class="sub-menu">
                                 <li><a href="dashboard-home.html">Dashboard Home </a></li>
@@ -34,7 +34,7 @@
                                 <li><a href="dashboard-my-profile.html">My Profile</a></li>
                             </ul> -->
                         </li>
-                        <li class="has-dropdown"><a href="#">Blog</a>
+                        <!-- <li class="has-dropdown"><a href="#">Blog</a>
                             <ul class="sub-menu">
                                 <li><a href="blog-grid.html">Blog Grid </a></li>
                                 <li><a href="blog-list.html">Blog List</a></li>
@@ -53,19 +53,25 @@
                                 <li><a href="page-404.html">Pages 404</a></li>
                             </ul>
                         </li>
-                        <li><a href="page-contact-us.html">Conact Us</a></li>
+                        <li><a href="page-contact-us.html">Conact Us</a></li> -->
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'home' %}"><img src="{{account.profile_picture.url}}" class="height-30px border-radius-30" alt=""> {{account.name|title}}</a></li>
+                        <li><a href="{% url 'logout' %}" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}"><i class="far fa-user"></i> Login</a></li>
+                        {% endif %}
                     </ul>
                 </div>
                 <div class="col-lg-3 col-md-12">
                     <hr class="margin-bottom-0px d-block d-sm-none">
-                    {% if request.user.is_authenticated %}
+                    <!-- {% if request.user.is_authenticated %}
                         
                     <a href="{% url 'home' %}" class="margin-top-15px d-inline-block text-grey-3 margin-right-15px"><img src="{{account.profile_picture.url}}" class="height-30px border-radius-30" alt=""> {{account.name|title}}</a>
                     <a href="{% url 'logout' %}" class="margin-tb-20px d-inline-block text-up-small float-left float-lg-right" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-fw fa-sign-out-alt"></i>Logout</a>
                     
                     {% else %}
                     <a href="{% url 'login' %}" class="margin-tb-20px d-inline-block text-up-small float-left float-lg-right text-right"><i class="far fa-user"></i> Login</a>
-                    {% endif %}
+                    {% endif %} -->
                 </div>
             </div>
 

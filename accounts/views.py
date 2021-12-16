@@ -250,7 +250,11 @@ class ProviderDashboard(View):
         if x == True:
             user = request.user
             account = Users.objects.get(user=user)
-            context = {'account': account}
+            review = Review.objects.filter(Q(service__user=account)| Q(product__service__user=account)).count()
+            booking = Booking.objects.filter(Q(service__user=account)| Q(product__service__user=account)).count()
+            service = ProviderService.objects.filter(user=account).count()
+            product = SubProduct.objects.filter(service__user=account).count()
+            context = {'account': account,'review': review,'booking': booking,'service': service,'product': product}
             return render(request,'provider/dashboard.html',context)
         else:
             return redirect('home')
@@ -670,6 +674,19 @@ class MyBookings(View):
             return render(request,'user/my_bookings.html',context)
         else:
             return redirect('home')
+
+class Bookings(View):
+    def get(self, request):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            booking = Booking.objects.filter(Q(service__user=account)| Q(product__service__user=account)).order_by('-datetime')
+            context = {'account': account,'booking': booking}
+            return render(request,'provider/bookings.html',context)
+        else:
+            return redirect('home')
+
 
 
 
