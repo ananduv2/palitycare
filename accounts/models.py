@@ -125,6 +125,21 @@ class Booking(models.Model):
     datetime = models.DateTimeField()
     amount_transferred = models.CharField(max_length=250)
 
+class AdminMessage(models.Model):
+    message = models.TextField()
+    datetime = models.DateTimeField()
+
+    def __str__(self):
+        return self.message
+
+class AdminMessageStatus(models.Model):
+    message = models.ForeignKey(AdminMessage, on_delete=models.CASCADE,null=True, blank=True)
+    user = models.ForeignKey(Users, on_delete=models.CASCADE,null=True, blank=True)
+    status = models.BooleanField(default=False)
+
+
+
+
 
 
 

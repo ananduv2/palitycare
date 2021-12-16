@@ -63,6 +63,7 @@ urlpatterns = [
     path('user/service/reviews/<id>/',ServiceReviews.as_view(),name='service_reviews'),
     path('user/service/booking/<id>/',MakeServiceBooking.as_view(), name='make_service_booking'),
     path('user/booking/success/<id>/<tid>/',ApproveBooking.as_view(), name='approve_booking'),
+    path('user/bookings/',MyBookings.as_view(), name='my_bookings'),
 
 ]
 

@@ -21,7 +21,8 @@ class IndexView(View):
     def get(self, request):
         try:
             user = request.user
-            context={'user': user}
+            account = Users.objects.get(user=user)
+            context={'user': user,'account': account}
         except:
             context = {}
         return render(request, 'common/index.html',context)
@@ -260,7 +261,10 @@ class UserDashboard(View):
         if x == True:
             user = request.user
             account = Users.objects.get(user=user)
-            context = {'account': account}
+            fav = UserFavorite.objects.filter(user=account).count()
+            review = Review.objects.filter(user=account).count()
+            booking = Booking.objects.filter(user=account).count()
+            context = {'account': account,'fav': fav,'review': review,'booking': booking}
             return render(request,'user/dashboard.html',context)
         else:
             return redirect('home')
@@ -651,7 +655,19 @@ class ApproveBooking(View):
             booking = Booking(user=account,service=service,booking_id=tid,datetime=dt,amount_transferred=amt)
             booking.save()
             context = {'account': account, 'booking': booking,'service': service}
-            return render(request,'user/my_booking.html',context)
+            return render(request,'user/booking_success.html',context)
+        else:
+            return redirect('home')
+
+class MyBookings(View):
+    def get(self, request):
+        x = UserCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            booking = Booking.objects.filter(user=account).order_by('-datetime')
+            context = {'account': account,'booking': booking}
+            return render(request,'user/my_bookings.html',context)
         else:
             return redirect('home')
 
