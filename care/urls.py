@@ -32,6 +32,13 @@ urlpatterns = [
     path('change/password/',PasswordChangeView.as_view(), name='change_password'),
 
 
+        #password reset paths
+    path('reset_password/', auth_views.PasswordResetView.as_view(template_name='common/forgot_password.html'),name='reset_password'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name='common/password_reset_sent.html'),name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='common/set_new_password.html'),name='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name='common/password_reset_complete.html'),name='password_reset_complete'),
+
+
     path('administrator/dashboard/',AdminDashboard.as_view(), name='admin_dashboard'),
     path('administrator/services/',AllServices.as_view(), name='admin_services'),
     path('administrator/services/update/<id>/',UpdateService.as_view(), name='update_admin_service'),
