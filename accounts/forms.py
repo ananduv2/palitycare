@@ -57,3 +57,8 @@ class UpdatePic(ModelForm):
         model = Users
         fields = ['profile_picture']
 
+class AdminMessageForm(ModelForm):
+    class Meta:
+        model = AdminMessage
+        fields = ['message']
+

@@ -125,10 +125,33 @@ class AdminDashboard(View):
             public = Users.objects.filter(type='public').count()
             services = Service.objects.all().count()
             review = Review.objects.all().count()
-            context = {'account': account,'providers': providers,'public': public,'services': services,'review': review}
+            form = AdminMessageForm()
+            context = {'account': account,'providers': providers,'public': public,'services': services,'review': review,'form': form}
             return render(request, 'admin/dashboard.html', context)
         else:
             return redirect('home')
+
+    def post(self, request):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            form = AdminMessageForm(request.POST)
+            if form.is_valid():
+                f = form.save(commit=False)
+                f.datetime = datetime.datetime.now()
+                f.save()
+                sp = Users.objects.filter(type='service_provider')
+                for i in sp:
+                    ams = AdminMessageStatus(message=f,user=i)
+                    ams.save()
+                return redirect('home')
+            else:
+                return redirect('home')
+        else:
+            return redirect('home')
+
+
 
 class AllServices(View):
     def get(self, request):
@@ -254,7 +277,8 @@ class ProviderDashboard(View):
             booking = Booking.objects.filter(Q(service__user=account)| Q(product__service__user=account)).count()
             service = ProviderService.objects.filter(user=account).count()
             product = SubProduct.objects.filter(service__user=account).count()
-            context = {'account': account,'review': review,'booking': booking,'service': service,'product': product}
+            message = AdminMessageStatus.objects.filter(user=account,status=False).count()
+            context = {'account': account,'review': review,'booking': booking,'service': service,'product': product,'message': message}
             return render(request,'provider/dashboard.html',context)
         else:
             return redirect('home')
@@ -686,6 +710,35 @@ class Bookings(View):
             return render(request,'provider/bookings.html',context)
         else:
             return redirect('home')
+
+
+class Messages(View):
+    def get(self, request):
+        x = AdminCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            message = AdminMessage.objects.all().order_by('-datetime')
+            context = {'account': account,'message': message}
+            return render(request,'admin/message.html', context)
+        else:
+            return redirect('home')
+
+class MyMessage(View):
+    def get(self, request):
+        x = ProviderCheck(request)
+        if x == True:
+            user = request.user
+            account = Users.objects.get(user=user)
+            message = AdminMessageStatus.objects.filter(user=account).order_by('-message__datetime')
+            for i in message:
+                i.status = True
+                i.save()
+            context = {'account': account,'message': message}
+            return render(request,'provider/message.html',context)
+        else:
+            return redirect('home')
+
 
 
 

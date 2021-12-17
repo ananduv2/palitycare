@@ -48,6 +48,7 @@ urlpatterns = [
     path('administrator/pending/provider/',PendingApproval.as_view(), name='pending_approval'),
     path('administrator/approve/provider/<id>/', ApproveAccount.as_view(), name='approve_account'),
     path('administrator/reject/provider/<id>/', RejectAccount.as_view(), name='reject_account'),
+    path('administrator/message/',Messages.as_view(), name='message'),
 
     path('provider/signup/',ProviderSignUp.as_view(), name='provider_signup'),
     path('provider/dashboard/',ProviderDashboard.as_view(), name='provider_dashboard'),
@@ -60,6 +61,7 @@ urlpatterns = [
     path('provider/remove/product/<id>/',RemoveProduct.as_view(), name='remove_product'),
     path('provider/product/review/',MyProductReview.as_view(), name='my_product_review'),
     path('provider/bookings/',Bookings.as_view(), name='bookings'),
+    path('provider/message/',MyMessage.as_view(), name='my_message'),
 
     path('user/signup/',UserSignup.as_view(), name='user_signup'),
     path('user/dashboard/',UserDashboard.as_view(), name='user_dashboard'),

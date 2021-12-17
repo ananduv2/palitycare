@@ -51,13 +51,35 @@
                                {% endif %}
                                 <a href="" class="d-inline-block text-grey-2 text-up-small"  data-toggle="modal" data-target="#Approve_{{i.id}}"><i class="fa fa-tick"></i> Approve</a>
                                 
-                                <a href="{% url 'reject_account' i.id %}" class="d-inline-block margin-lr-20px text-grey-2 text-up-small"><i class="far fa-window-close"></i> Reject</a>
+                                <a href="" class="d-inline-block margin-lr-20px text-grey-2 text-up-small"  data-toggle="modal" data-target="#Reject_{{i.id}}"><i class="far fa-window-close"></i> Reject</a>
                             
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- // Booking item -->
+
+                <!-- Logout Modal-->
+                <div class="modal fade" id="Reject_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                            </div>
+                            <div class="modal-body">Are you sure you want to reject this account?.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <form method="post" action="{% url 'reject_account' i.id %}">
+                                    {% csrf_token %}
+                                <button class="btn btn-danger" type="submit">Reject</button></form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Logout Modal-->
                 <div class="modal fade" id="Approve_{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,6 +101,12 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
                 {% empty %}
                 <div class="alert alert-danger  margin-bottom-35px border-radius-10 padding-30px">
                     <strong>OOPS!</strong> No pending approvals Found
